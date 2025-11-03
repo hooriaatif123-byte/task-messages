@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OCTOM - Chat UI</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+    <!-- ✅ SIDEBAR from original OCTOM dashboard -->
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <div class="logo">O</div>
+        <div class="brand-text">OCTOM</div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn active" title="Dashboard">
+          <i class="fa-solid fa-house"></i>
+        </button>
+        <button class="nav-btn" title="Board">
+          <i class="fa-solid fa-layer-group"></i>
+        </button>
+        <button class="nav-btn" title="Messages">
+          <i class="fa-solid fa-comments"></i>
+        </button>
+        <button class="nav-btn" title="Files">
+          <i class="fa-solid fa-folder-open"></i>
+        </button>
+        <button class="nav-btn" title="Settings">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="themeToggle" class="small-btn">Toggle theme</button>
+      </div>
+    </aside>
+    <!-- CHAT LIST (2nd column) -->
+    <section class="chats-col" id="chatsCol">
+      <header class="chats-header">
+        <h3>Messages</h3>
+        <div class="search-wrap">
+          <input type="text" placeholder="Search..." id="searchChats">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+      </header>
+
+      <ul class="chat-list" id="chatList">
+        <!-- multiple chat items (10+) -->
+        <li class="chat-item active">
+          <img class="avatar" src="https://i.pravatar.cc/96?img=7" alt="Kilian James">
+          <div class="meta">
+            <div class="meta-top">
+              <strong>Kilian James</strong>
+              <span class="time">4:30 PM</span>
+            </div>
+            <div class="meta-bottom">
+              <small class="status typing">Typing...</small>
+              <span class="badge">2</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=5" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Design Team</strong><span class="time">9:36 AM</span></div>
+            <div class="meta-bottom"><small>Hello! Everyone</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=1" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Ahmed Medi</strong><span class="time">1:15 AM</span></div>
+            <div class="meta-bottom"><small>Wow really Cool 🔥</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=7" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Claudia Maudi</strong><span class="time">4:30 PM</span></div>
+            <div class="meta-bottom"><small class="typing">Typing...</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=20" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Novita</strong><span class="time">4:30 PM</span></div>
+            <div class="meta-bottom"><small>yah, nice design ✨</small><span class="badge">2</span></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=13" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Milie Nose</strong><span class="time">8:20 PM</span></div>
+            <div class="meta-bottom"><small>Awesome 🔥</small><span class="dot alert"></span></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=30" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Ikhsan SD</strong><span class="time">Yesterday</span></div>
+            <div class="meta-bottom"><small>Voice message 🎧</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=8" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Aditya</strong><span class="time">Yesterday</span></div>
+            <div class="meta-bottom"><small>publish now ✅</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=22" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Group — Team Leads</strong><span class="time">2:10 PM</span></div>
+            <div class="meta-bottom"><small>Check the updated agenda.</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=9" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Group — EcoStay Devs</strong><span class="time">11:45 AM</span></div>
+            <div class="meta-bottom"><small>Firebase done ✅</small><span class="badge">1</span></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=14" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Fatima</strong><span class="time">Yesterday</span></div>
+            <div class="meta-bottom"><small>Congrats on your new role!</small></div>
+          </div>
+        </li>
+
+        <li class="chat-item">
+          <img class="avatar" src="https://i.pravatar.cc/48?img=15" alt="">
+          <div class="meta">
+            <div class="meta-top"><strong>Ali</strong><span class="time">10:30 AM</span></div>
+            <div class="meta-bottom"><small>Can we meet tomorrow?</small></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- CENTER CHAT WINDOW -->
+    <main class="chat-main">
+      <div class="main-header">
+        <div class="header-center">
+          <div class="main-search">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" placeholder="Search messages, files, users...">
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="notification-btn">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <div class="header-profile">
+            <img src="https://i.pravatar.cc/96?img=7" alt="Your Profile" class="header-avatar">
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-top">
+        <div class="group-left">
+          <img class="group-avatar" src="https://i.pravatar.cc/52?img=12" alt="">
+          <div class="group-title">
+            <h2>Design Team</h2>
+            <small>60 members, 10 online</small>
+          </div>
+        </div>
+
+        <div class="group-right">
+          <!-- small stacked avatars -->
+          <div class="group-avatars">
+            <img src="https://i.pravatar.cc/36?img=4" alt="">
+            <img src="https://i.pravatar.cc/36?img=5" alt="">
+            <img src="https://i.pravatar.cc/36?img=6" alt="">
+            <button class="add-member">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-body" id="chatBody">
+        <!-- timeline / date -->
+        <div class="timeline"><span>Today, March 24</span></div>
+
+        <!-- messages -->
+        <div class="msg-row left">
+          <img class="msg-avatar" src="https://i.pravatar.cc/96?img=7" alt="Kilian James">
+          <div>
+            <div class="msg-meta">Kilian James <span class="msg-time">10:12 AM</span></div>
+            <div class="msg-bubble">
+              <p>Hi, Are you still Web Designer?</p>
+              <p class="muted">would love to see some Design 😊</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-row left">
+          <img class="msg-avatar" src="https://i.pravatar.cc/40?img=32" alt="">
+          <div>
+            <div class="msg-meta">Claudia Maudi <span class="msg-time">10:30 AM</span></div>
+            <div class="msg-bubble">
+              <p>Hey, happy to hear from you. Yes, I will show you.</p>
+              <div class="msg-attachments">
+                <img src="images/image1.webp" alt="preview">
+                <img src="images/image2.webp" alt="preview2">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-row right">
+          <div>
+            <div class="msg-meta">Urhan <span class="msg-time">10:30 AM</span></div>
+            <div class="msg-bubble">
+              <p>Great 🔥 That's a nice design idea. 🙂</p>
+            </div>
+          </div>
+          <img class="msg-avatar" src="https://i.pravatar.cc/96?img=7" alt="You">
+        </div>
+
+        <!-- more messages to show long scroll -->
+        <div class="msg-row left">
+          <img class="msg-avatar" src="https://i.pravatar.cc/40?img=18" alt="Milie Nose">
+          <div>
+            <div class="msg-meta">Milie Nose <span class="msg-time">8:20 PM</span></div>
+            <div class="msg-bubble">
+              <p>Nice job everyone!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-row right">
+          <div>
+            <div class="msg-meta">You <span class="msg-time">8:25 PM</span></div>
+            <div class="msg-bubble">
+              <p>Thanks! 🎉</p>
+            </div>
+          </div>
+          <img class="msg-avatar" src="https://i.pravatar.cc/96?img=7" alt="You">
+        </div>
+
+        <div class="msg-row left">
+          <img class="msg-avatar" src="https://i.pravatar.cc/40?img=2" alt="Ahmed Medi">
+          <div>
+            <div class="msg-meta">Ahmed Medi <span class="msg-time">1:15 AM</span></div>
+            <div class="msg-bubble">
+              <p>Wow really Cool 🔥</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <button class="icon-btn"><i class="fas fa-microphone"></i></button>
+        <input id="messageText" type="text" placeholder="Add a comment..." />
+        <div class="input-actions">
+          <button class="icon-btn"><i class="far fa-smile"></i></button>
+          <button class="icon-btn"><i class="fas fa-paperclip"></i></button>
+          <button id="sendMsg" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT INFO PANEL -->
+    <aside class="rightbar">
+      <div class="profile-card">
+        <img class="big-avatar" src="https://i.pravatar.cc/96?img=7" alt="">
+        <h3>Kilian James</h3>
+        <p class="handle">@kilian_james</p>
+      </div>
+
+      <div class="panel-section">
+        <div class="panel-head"><h4>Attachments</h4><i class="fas fa-chevron-down"></i></div>
+        <ul class="attachments-list">
+          <li>
+            <i class="fab fa-figma figma"></i>
+            <span class="file-name">Very important file.fig</span>
+            <span class="file-meta">7.5 MB · 3.22.22</span>
+          </li>
+          <li>
+            <i class="far fa-file-alt"></i>
+            <span class="file-name">Some file.scratch</span>
+            <span class="file-meta">7.5 MB · 3.22.22</span>
+          </li>
+          <li>
+            <i class="fab fa-figma"></i>
+            <span class="file-name">List of something.xd</span>
+            <span class="file-meta">7.5 MB · 3.22.22</span>
+          </li>
+          <li>
+            <i class="far fa-file-image"></i>
+            <span class="file-name">Very important fil.svg</span>
+            <span class="file-meta">7.5 MB · 3.22.22</span>
+          </li>
+        </ul>
+        <a class="view-all" href="#">View all</a>
+      </div>
+
+     <div class="panel-section">
+  <div class="panel-head">
+    <h4>Members</h4>
+    <i class="fas fa-chevron-down"></i> <!-- dropdown arrow -->
+  </div>
+  <button class="add-member-sm">+ Add Member</button>
+  <ul class="members-list">
+    <li><img src="https://i.pravatar.cc/36?img=20"> Novita</li>
+    <li><img src="https://i.pravatar.cc/36?img=13"> Milie Nose</li>
+    <li><img src="https://i.pravatar.cc/36?img=30"> Ikhsan SD</li>
+    <li><img src="https://i.pravatar.cc/36?img=8"> Aditya</li>
+  </ul>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
