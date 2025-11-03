@@ -607,11 +607,42 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
     grid-template-columns: 1fr;
     height: 100vh;
     overflow: hidden;
+    position: relative;
   }
-  .sidebar, 
-  .chats-col,
+  .sidebar,
   .rightbar { 
-    display: none; /* Hide all sidebars on mobile */
+    display: none;
+  }
+  .chats-col {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 30;
+    display: block;
+    background: var(--panel-white);
+  }
+  .chats-col.hidden {
+    display: none;
+  }
+  .chat-main {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100vh;
+    transition: transform 0.3s ease-out;
+    background: var(--panel-white);
+  }
+  .chat-main.slide-left {
+    transform: translateX(-100%);
+  }
+  
+  /* Add touch feedback */
+  .chat-main {
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
   }
   
   .chat-main {

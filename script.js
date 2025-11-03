@@ -2,6 +2,21 @@
 const themeBtn = document.getElementById('themeToggle');
 const root = document.documentElement;
 
+// Mobile Navigation
+let isMobileView = window.innerWidth <= 599;
+const chatMain = document.querySelector('.chat-main');
+const chatsCol = document.querySelector('.chats-col');
+
+// Update isMobileView on resize
+window.addEventListener('resize', () => {
+    isMobileView = window.innerWidth <= 599;
+    if (!isMobileView) {
+        // Reset any mobile-specific states when returning to larger screens
+        chatMain?.classList.remove('slide-left');
+        chatsCol?.classList.remove('hidden');
+    }
+});
+
 // If you want to remember theme during page session only, keep it simple:
 themeBtn?.addEventListener('click', () => {
   if (root.hasAttribute('data-theme')) {
@@ -65,3 +80,39 @@ messageText?.addEventListener('keydown', (e) => {
     sendBtn.click();
   }
 });
+
+// Handle mobile navigation
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Handle chat item click to open chat
+document.addEventListener('click', (e) => {
+    if (!isMobileView) return;
+    if (e.target.closest('.chat-item')) {
+        chatMain.classList.add('slide-left');
+        chatsCol.classList.add('hidden');
+    }
+});
+
+// Handle swipe gesture
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', (e) => {
+    if (!isMobileView) return;
+    
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, false);
+
+function handleSwipe() {
+    const swipeThreshold = 100; // minimum distance for swipe
+    const swipeDistance = touchEndX - touchStartX;
+    
+    // If swiped right while in chat view
+    if (swipeDistance > swipeThreshold && chatMain.classList.contains('slide-left')) {
+        chatMain.classList.remove('slide-left');
+        chatsCol.classList.remove('hidden');
+    }
+}
