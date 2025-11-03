@@ -180,6 +180,23 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
   right: 26px;
 }
 
+.theme-toggle-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--icon-grey);
+  font-size: 16px;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--chat-bg);
+  color: var(--accent);
+}
+
 .notification-btn {
   position: relative;
   background: transparent;
@@ -612,6 +629,9 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
   .sidebar,
   .rightbar { 
     display: none;
+  }
+  .theme-toggle-btn {
+    display: block; /* Show theme toggle on mobile */
   }
   .chats-col {
     position: fixed;

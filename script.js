@@ -1,5 +1,6 @@
 // Theme toggle: toggles data-theme on documentElement
 const themeBtn = document.getElementById('themeToggle');
+const mobileThemeBtn = document.getElementById('mobileThemeToggle');
 const root = document.documentElement;
 
 // Mobile Navigation
@@ -18,13 +19,20 @@ window.addEventListener('resize', () => {
 });
 
 // If you want to remember theme during page session only, keep it simple:
-themeBtn?.addEventListener('click', () => {
+// Function to toggle theme
+function toggleTheme() {
   if (root.hasAttribute('data-theme')) {
     root.removeAttribute('data-theme');
+    document.querySelectorAll('.fa-sun').forEach(icon => icon.classList.replace('fa-sun', 'fa-moon'));
   } else {
     root.setAttribute('data-theme', 'dark');
+    document.querySelectorAll('.fa-moon').forEach(icon => icon.classList.replace('fa-moon', 'fa-sun'));
   }
-});
+}
+
+// Add click handlers for both buttons
+themeBtn?.addEventListener('click', toggleTheme);
+mobileThemeBtn?.addEventListener('click', toggleTheme);
 
 // Simple send message demo (adds your message to chat as right aligned blue bubble)
 const sendBtn = document.getElementById('sendMsg');
