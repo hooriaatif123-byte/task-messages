@@ -124,3 +124,17 @@ function handleSwipe() {
         chatsCol.classList.remove('hidden');
     }
 }
+// ---------------- Mobile input fix ----------------
+const chatInputWrapper = document.querySelector('.chat-input');
+
+messageText.addEventListener('focus', () => {
+  setTimeout(() => {
+    messageText.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + 20) + 'px';
+  }, 300);
+});
+
+messageText.addEventListener('blur', () => {
+  chatBody.style.paddingBottom = '18px';
+});
+
