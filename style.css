@@ -359,24 +359,29 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
 .msg-attachments { display:flex; gap:8px; margin-top:8px; }
 .msg-attachments img { width:140px; height:86px; object-fit:cover; border-radius:8px; box-shadow:0 6px 18px rgba(16,24,40,0.06); }
 
-.chat-input textarea {
-  flex: 1;
-  resize: none;
-  overflow: hidden;
-  padding: 12px 16px;
-  border-radius: 24px;
-  border: 1px solid var(--card-border);
-  outline: none;
-  background: var(--panel-white);
-  color: var(--text-main);
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 1.4;
-  max-height: 120px; /* prevents it from growing too tall */
+.chat-input { 
+    display:flex; 
+    gap:12px; 
+    align-items:center; 
+    padding:14px 20px; 
+    background:var(--panel-white); 
+    border-top:1px solid var(--card-border); 
+    flex-shrink:0;           /* ensures it doesn't shrink on mobile keyboards */
 }
 
-.icon-btn { background:transparent; border:none; font-size:18px; color:var(--text-main); cursor:pointer; }
-.send-btn { background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:white; padding:10px 12px; border-radius:50%; font-size:14px; cursor:pointer; }
+.chat-input input { 
+    flex:1; 
+    padding:12px 16px; 
+    border-radius:24px; 
+    border:1px solid var(--card-border); 
+    outline:none; 
+    background:var(--panel-white); 
+    color:var(--text-main); 
+    min-width:0;             /* important for flexbox input to not overflow */
+}
+
+.icon-btn { background:transparent; border:none; font-size:18px; color:var(--text-main); cursor:pointer;flex-shrink:0; }
+.send-btn { background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:white; padding:10px 12px; border-radius:50%; font-size:14px; cursor:pointer;flex-shrink:0; }
 
 /* ===================== RIGHT BAR ===================== */
 .rightbar { background:var(--panel-white); border-left:1px solid var(--card-border); padding:20px 22px; overflow:auto; }
