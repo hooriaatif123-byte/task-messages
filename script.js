@@ -75,10 +75,7 @@ messageText?.addEventListener('keydown', (e) => {
 let isMobileView = window.innerWidth <= 599;
 const chatMain = document.querySelector('.chat-main');
 const chatsCol = document.querySelector('.chats-col');
-
-// Toggle messages column on mobile when clicking the Messages icon
-const messagesBtn = document.querySelector('.nav-btn[title="Messages"]'); // Selects the Messages button
-
+const messagesBtn = document.querySelector('.nav-btn[title="Messages"]'); 
 
 if (messagesBtn && chatsCol) {
   messagesBtn.addEventListener('click', () => {
@@ -86,32 +83,42 @@ if (messagesBtn && chatsCol) {
   });
 }
 
-window.addEventListener('resize', () => {
-    isMobileView = window.innerWidth <= 599;
-    if (!isMobileView) {
-        chatMain?.classList.remove('slide-left');
-        chatsCol?.classList.remove('hidden');
-    }
-});
-
+// Open chat when a chat item is clicked (mobile only)
 document.addEventListener('click', (e) => {
-    if (!isMobileView) return;
-    if (e.target.closest('.chat-item')) {
-        chatMain.classList.add('slide-left');
-        chatsCol.classList.add('hidden');
-    }
+  if (!isMobileView) return;
+  const chatItem = e.target.closest('.chat-item');
+  if (chatItem) {
+    chatMain.classList.add('slide-left'); // Show chat window
+    chatsCol.classList.remove('open');    // Hide chat list
+  }
 });
 
+// Update isMobileView on resize
+window.addEventListener('resize', () => {
+  isMobileView = window.innerWidth <= 599;
+  if (!isMobileView) {
+    chatMain.classList.remove('slide-left');
+    chatsCol.classList.remove('open');
+  }
+});
+// Handle swipe to go back to chat list
 let touchStartX = 0;
 let touchEndX = 0;
-document.addEventListener('touchstart', (e) => touchStartX = e.changedTouches[0].screenX, false);
+
+document.addEventListener('touchstart', (e) => {
+  if (!isMobileView) return;
+  touchStartX = e.changedTouches[0].screenX;
+}, false);
+
 document.addEventListener('touchend', (e) => {
-    if (!isMobileView) return;
-    touchEndX = e.changedTouches[0].screenX;
-    if (touchEndX - touchStartX > 100 && chatMain.classList.contains('slide-left')) {
-        chatMain.classList.remove('slide-left');
-        chatsCol.classList.remove('hidden');
-    }
+  if (!isMobileView) return;
+  touchEndX = e.changedTouches[0].screenX;
+  const swipeDistance = touchEndX - touchStartX;
+
+  if (swipeDistance > 100 && chatMain.classList.contains('slide-left')) {
+    chatMain.classList.remove('slide-left'); // Go back to chat list
+    chatsCol.classList.add('open');
+  }
 }, false);
 
 // ---------------- Mobile Input Keyboard Fix Enhanced ----------------
