@@ -104,39 +104,66 @@ document.addEventListener('touchend', (e) => {
     }
 }, false);
 
-// ---------------- Mobile Input Keyboard Fix ----------------
+// ---------------- Mobile Input Keyboard Fix Enhanced ----------------
 const chatInputWrapper = document.querySelector('.chat-input');
 
-function fixMobileInput() {
-    if (window.innerWidth > 768) return;
+function adjustForKeyboard() {
+    if (!window.visualViewport || window.innerWidth > 768) {
+        // Reset styles for non-mobile
+        chatInputWrapper.style.position = '';
+        chatInputWrapper.style.bottom = '';
+        chatInputWrapper.style.left = '';
+        chatInputWrapper.style.width = '';
+        chatInputWrapper.style.zIndex = '';
+        chatBody.style.paddingBottom = '18px';
+        return;
+    }
 
-    messageText.addEventListener('focus', () => {
-        setTimeout(() => {
-            chatInputWrapper.style.position = 'fixed';
-            chatInputWrapper.style.bottom = '0';
-            chatInputWrapper.style.left = '0';
-            chatInputWrapper.style.width = '100%';
-            chatInputWrapper.style.zIndex = '999';
-            chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + 10) + 'px';
-            chatBody.scrollTop = chatBody.scrollHeight; // Scroll chat to bottom
-        }, 300);
-    });
+    const viewportHeight = window.visualViewport.height;
+    const windowHeight = window.innerHeight;
+    const keyboardHeight = windowHeight - viewportHeight;
 
-    messageText.addEventListener('blur', () => {
-        setTimeout(() => {
-            chatInputWrapper.style.position = '';
-            chatInputWrapper.style.bottom = '';
-            chatInputWrapper.style.left = '';
-            chatInputWrapper.style.width = '';
-            chatInputWrapper.style.zIndex = '';
-            chatBody.style.paddingBottom = '18px';
-        }, 300);
-    });
+    if (keyboardHeight > 150) { // keyboard likely open
+        chatInputWrapper.style.position = 'fixed';
+        chatInputWrapper.style.bottom = keyboardHeight + 'px';
+        chatInputWrapper.style.left = '0';
+        chatInputWrapper.style.width = '100%';
+        chatInputWrapper.style.zIndex = '999';
+
+        chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + keyboardHeight) + 'px';
+        chatBody.scrollTop = chatBody.scrollHeight;
+    } else {
+        // keyboard closed or minimized
+        chatInputWrapper.style.position = 'fixed';
+        chatInputWrapper.style.bottom = '0';
+        chatInputWrapper.style.left = '0';
+        chatInputWrapper.style.width = '100%';
+        chatInputWrapper.style.zIndex = '999';
+        chatBody.style.paddingBottom = chatInputWrapper.offsetHeight + 'px';
+    }
 }
 
+messageText.addEventListener('focus', () => {
+    setTimeout(() => {
+        adjustForKeyboard();
+    }, 300);
+});
+
+messageText.addEventListener('blur', () => {
+    setTimeout(() => {
+        adjustForKeyboard();
+    }, 300);
+});
+
 // Call on load and resize
-fixMobileInput();
-window.addEventListener('resize', fixMobileInput);
+window.addEventListener('resize', adjustForKeyboard);
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', adjustForKeyboard);
+  window.visualViewport.addEventListener('scroll', adjustForKeyboard);
+}
+
+adjustForKeyboard();
 
 // ---------------- Auto-expand Input ----------------
 messageText.addEventListener('input', () => {

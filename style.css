@@ -327,8 +327,41 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
 .msg-attachments { display:flex; gap:8px; margin-top:8px; }
 .msg-attachments img { width:140px; height:86px; object-fit:cover; border-radius:8px; box-shadow:0 6px 18px rgba(16,24,40,0.06); }
 
-.chat-input { display:flex; gap:12px; align-items:center; padding:14px 20px; background:var(--panel-white); border-top:1px solid var(--card-border); }
-.chat-input input { flex:1; padding:12px 16px; border-radius:24px; border:1px solid var(--card-border); outline:none; background:var(--panel-white); color:var(--text-main); }
+.chat-input { 
+  display:flex;
+   gap:12px;
+    align-items:center;
+     padding:14px 20px;
+      background:var(--panel-white);
+       border-top:1px solid var(--card-border);
+        /* Updated for mobile keyboard fix */
+  position: fixed;       /* fixed positioning at viewport bottom */
+  left: -7;
+  width: 58.2%;          /* full width */
+  bottom: 0;            /* initially at bottom */
+  padding: 8px 12px;    /* adjusted padding for touch target */
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  background: var(--panel-white);
+  z-index: 999;         /* on top */
+  box-shadow: 0 -2px 6px rgba(16,24,40,0.1); /* subtle top shadow */
+  transition: bottom 0.25s ease; /* smooth moving on keyboard show/hide */
+       }
+.chat-input input {
+   flex:1;
+    padding:12px 16px;
+     border-radius:24px; 
+     border:1px solid var(--card-border);
+      outline:none;
+       background:var(--panel-white);
+        color:var(--text-main); 
+          /* Updated for auto-expand and mobile */
+  resize: none;          /* prevent manual resize */
+  max-height: 120px;     /* max height when expanding */
+  overflow-y: auto;      /* scroll if content too large */
+  transition: height 0.15s ease;
+      }
 .icon-btn { background:transparent; border:none; font-size:18px; color:var(--text-main); cursor:pointer; }
 .send-btn { background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:white; padding:10px 12px; border-radius:50%; font-size:14px; cursor:pointer; }
 
