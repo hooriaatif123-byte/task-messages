@@ -93,14 +93,22 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Update isMobileView on resize
 window.addEventListener('resize', () => {
-  isMobileView = window.innerWidth <= 599;
-  if (!isMobileView) {
-    chatMain.classList.remove('slide-left');
-    chatsCol.classList.remove('open');
-  }
+    isMobileView = window.innerWidth <= 599;
+    if (!isMobileView) {
+        chatMain?.classList.remove('slide-left');
+        chatsCol?.classList.remove('hidden');
+    }
 });
+
+document.addEventListener('click', (e) => {
+    if (!isMobileView) return;
+    if (e.target.closest('.chat-item')) {
+        chatMain.classList.add('slide-left');
+        chatsCol.classList.add('hidden');
+    }
+});
+
 // Handle swipe to go back to chat list
 let touchStartX = 0;
 let touchEndX = 0;
