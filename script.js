@@ -1,8 +1,25 @@
-// ================= Theme Toggle =================
+// Theme toggle: toggles data-theme on documentElement
 const themeBtn = document.getElementById('themeToggle');
 const mobileThemeBtn = document.getElementById('mobileThemeToggle');
 const root = document.documentElement;
 
+// Mobile Navigation
+let isMobileView = window.innerWidth <= 599;
+const chatMain = document.querySelector('.chat-main');
+const chatsCol = document.querySelector('.chats-col');
+
+// Update isMobileView on resize
+window.addEventListener('resize', () => {
+    isMobileView = window.innerWidth <= 599;
+    if (!isMobileView) {
+        // Reset any mobile-specific states when returning to larger screens
+        chatMain?.classList.remove('slide-left');
+        chatsCol?.classList.remove('hidden');
+    }
+});
+
+// If you want to remember theme during page session only, keep it simple:
+// Function to toggle theme
 function toggleTheme() {
   if (root.hasAttribute('data-theme')) {
     root.removeAttribute('data-theme');
@@ -13,22 +30,17 @@ function toggleTheme() {
   }
 }
 
+// Add click handlers for both buttons
 themeBtn?.addEventListener('click', toggleTheme);
 mobileThemeBtn?.addEventListener('click', toggleTheme);
 
-
-// ================= Chat Send =================
+// Simple send message demo (adds your message to chat as right aligned blue bubble)
 const sendBtn = document.getElementById('sendMsg');
 const messageText = document.getElementById('messageText');
 const chatBody = document.getElementById('chatBody');
 
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
 function appendOutgoing(text) {
   if (!text || !chatBody) return;
-
   const row = document.createElement('div');
   row.className = 'msg-row right';
 
@@ -56,17 +68,20 @@ function appendOutgoing(text) {
 
   chatBody.appendChild(row);
   chatBody.scrollTop = chatBody.scrollHeight;
-  messageText.value = '';
-  messageText.style.height = '40px'; // reset input height
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 sendBtn?.addEventListener('click', () => {
   const txt = messageText.value.trim();
   if (!txt) return;
   appendOutgoing(txt);
+  messageText.value = '';
 });
 
-// Send on Enter
+// also send on Enter
 messageText?.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
@@ -74,84 +89,38 @@ messageText?.addEventListener('keydown', (e) => {
   }
 });
 
-// ================= Mobile Navigation =================
-let isMobileView = window.innerWidth <= 599;
-const chatMain = document.querySelector('.chat-main');
-const chatsCol = document.querySelector('.chats-col');
-
-window.addEventListener('resize', () => {
-  isMobileView = window.innerWidth <= 599;
-  if (!isMobileView) {
-    chatMain?.classList.remove('slide-left');
-    chatsCol?.classList.remove('hidden');
-  }
-});
-
+// Handle mobile navigation
 let touchStartX = 0;
 let touchEndX = 0;
 
-// Click chat to open (mobile)
+// Handle chat item click to open chat
 document.addEventListener('click', (e) => {
-  if (!isMobileView) return;
-  if (e.target.closest('.chat-item')) {
-    chatMain.classList.add('slide-left');
-    chatsCol.classList.add('hidden');
-  }
+    if (!isMobileView) return;
+    if (e.target.closest('.chat-item')) {
+        chatMain.classList.add('slide-left');
+        chatsCol.classList.add('hidden');
+    }
 });
 
-// Swipe to go back
+// Handle swipe gesture
 document.addEventListener('touchstart', (e) => {
-  touchStartX = e.changedTouches[0].screenX;
+    touchStartX = e.changedTouches[0].screenX;
 }, false);
 
 document.addEventListener('touchend', (e) => {
-  if (!isMobileView) return;
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
+    if (!isMobileView) return;
+    
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
 }, false);
 
 function handleSwipe() {
-  const swipeThreshold = 100;
-  if (touchEndX - touchStartX > swipeThreshold && chatMain.classList.contains('slide-left')) {
-    chatMain.classList.remove('slide-left');
-    chatsCol.classList.remove('hidden');
-  }
+    const swipeThreshold = 100; // minimum distance for swipe
+    const swipeDistance = touchEndX - touchStartX;
+    
+    // If swiped right while in chat view
+    if (swipeDistance > swipeThreshold && chatMain.classList.contains('slide-left')) {
+        chatMain.classList.remove('slide-left');
+        chatsCol.classList.remove('hidden');
+    }
 }
-
-// ================= Mobile Keyboard Handling =================
-const chatInputWrapper = document.querySelector('.chat-input');
-
-function adjustForKeyboard() {
-  if (window.innerWidth > 768) return;
-
-  chatBody.scrollTop = chatBody.scrollHeight;
-
-  chatInputWrapper.style.position = 'fixed';
-  chatInputWrapper.style.bottom = '0';
-  chatInputWrapper.style.left = '0';
-  chatInputWrapper.style.width = '100%';
-  chatInputWrapper.style.zIndex = '10';
-
-  chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + 10) + 'px';
-}
-
-function resetKeyboardAdjustment() {
-  if (window.innerWidth > 768) return;
-
-  chatInputWrapper.style.position = '';
-  chatInputWrapper.style.bottom = '';
-  chatInputWrapper.style.left = '';
-  chatInputWrapper.style.width = '';
-  chatInputWrapper.style.zIndex = '';
-  chatBody.style.paddingBottom = '18px';
-}
-
-messageText.addEventListener('focus', () => setTimeout(adjustForKeyboard, 300));
-messageText.addEventListener('blur', resetKeyboardAdjustment);
-
-// ================= Auto-Expand Input Height =================
-messageText.addEventListener('input', () => {
-  messageText.style.height = 'auto';
-  messageText.style.height = messageText.scrollHeight + 'px';
-  if (messageText.value.trim() === '') messageText.style.height = '40px';
-});
