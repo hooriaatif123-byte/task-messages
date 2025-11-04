@@ -75,11 +75,17 @@ messageText?.addEventListener('keydown', (e) => {
 let isMobileView = window.innerWidth <= 599;
 const chatMain = document.querySelector('.chat-main');
 const chatsCol = document.querySelector('.chats-col');
+const chatInput = document.querySelector('.chat-input'); // Reference the input wrapper
 const messagesBtn = document.querySelector('.nav-btn[title="Messages"]'); 
-
 if (messagesBtn && chatsCol) {
   messagesBtn.addEventListener('click', () => {
     chatsCol.classList.toggle('open'); // Toggles the 'open' class to show/hide
+    // NEW: Hide input when chat list is open (to prevent it from showing over the list)
+    if (chatsCol.classList.contains('open')) {
+      chatInputWrapper.style.display = 'none';
+    } else {
+      chatInputWrapper.style.display = 'flex'; // Restore when list is closed
+    }
   });
 }
 
@@ -90,6 +96,8 @@ document.addEventListener('click', (e) => {
   if (chatItem) {
     chatMain.classList.add('slide-left'); // Show chat window
     chatsCol.classList.remove('open');    // Hide chat list
+    // NEW: Ensure input is visible when entering chat
+    chatInputWrapper.style.display = 'flex';
   }
 });
 
@@ -97,7 +105,9 @@ window.addEventListener('resize', () => {
     isMobileView = window.innerWidth <= 599;
     if (!isMobileView) {
         chatMain?.classList.remove('slide-left');
-        chatsCol?.classList.remove('hidden');
+        chatsCol?.classList.remove('open'); // Assuming 'hidden' was a typo or old class; use 'open' for consistency
+        // NEW: Always show input on non-mobile (since it's not fixed there)
+        chatInput.style.display = 'flex';
     }
 });
 
