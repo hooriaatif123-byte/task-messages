@@ -124,3 +124,38 @@ function handleSwipe() {
         chatsCol.classList.remove('hidden');
     }
 }
+// ---------------- Mobile input keyboard handling ----------------
+const msgInput = document.getElementById('messageText');
+
+msgInput.addEventListener('focus', () => {
+    // delay to let keyboard open
+    setTimeout(() => {
+        // Scroll chat to show input
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // On mobile, adjust chat-body height to stay above keyboard
+        if (window.innerWidth <= 768) {
+            const chatBodyEl = document.getElementById('chatBody');
+            chatBodyEl.style.maxHeight = (window.innerHeight - msgInput.offsetHeight - 20) + 'px';
+        }
+    }, 300);
+});
+
+msgInput.addEventListener('blur', () => {
+    // Reset chat-body height on blur
+    if (window.innerWidth <= 768) {
+        const chatBodyEl = document.getElementById('chatBody');
+        chatBodyEl.style.maxHeight = '';
+    }
+});
+
+// Optional: auto-expand input height when typing
+msgInput.addEventListener('input', () => {
+    msgInput.style.height = 'auto';
+    msgInput.style.height = msgInput.scrollHeight + 'px';
+
+    if (msgInput.value.trim() === '') {
+        msgInput.style.height = '40px'; // base height
+    }
+});
+
