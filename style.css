@@ -326,34 +326,9 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
 }
 .msg-attachments { display:flex; gap:8px; margin-top:8px; }
 .msg-attachments img { width:140px; height:86px; object-fit:cover; border-radius:8px; box-shadow:0 6px 18px rgba(16,24,40,0.06); }
-.chat-input {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 15px;
-  background: var(--panel-white);
-  border-top: 1px solid var(--card-border);
-  position: sticky; /* keep above keyboard on mobile */
-  bottom: 0;
-  z-index: 100;
-}
 
-.chat-input input {
-  flex: 1;
-  padding: 10px 14px;
-  border-radius: 24px;
-  border: 1px solid var(--card-border);
-  outline: none;
-  background: var(--panel-white);
-  color: var(--text-main);
-  min-height: 40px;
-}
-.chat-input .input-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
+.chat-input { display:flex; gap:12px; align-items:center; padding:14px 20px; background:var(--panel-white); border-top:1px solid var(--card-border); }
+.chat-input input { flex:1; padding:12px 16px; border-radius:24px; border:1px solid var(--card-border); outline:none; background:var(--panel-white); color:var(--text-main); }
 .icon-btn { background:transparent; border:none; font-size:18px; color:var(--text-main); cursor:pointer; }
 .send-btn { background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; color:white; padding:10px 12px; border-radius:50%; font-size:14px; cursor:pointer; }
 
@@ -512,20 +487,6 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
 
 
 /* ===================== RESPONSIVE ===================== */
-@media screen and (max-width: 768px) {
-  .chat-input {
-    padding: 10px 12px;
-    gap: 8px;
-  }
-  .chat-input input {
-    font-size: 13px;
-    padding: 10px 14px;
-  }
-  .icon-btn, .send-btn {
-    font-size: 16px;
-    padding: 8px;
-  }
-}
 /* Large Screen Layout (above 1400px) */
 @media (min-width: 1401px) {
   .app {
@@ -856,12 +817,3 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
     font-size: 11px;
   }
 }
-@media screen and (max-width: 480px) {
-  .chat-input {
-    padding: 8px 12px;
-  }
-  .chat-input input {
-    padding: 8px 12px;
-  }
-}
-

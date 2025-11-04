@@ -277,7 +277,6 @@
       <div class="chat-input">
         <button class="icon-btn"><i class="fas fa-microphone"></i></button>
         <input id="messageText" type="text" placeholder="Add a comment..." />
-
         <div class="input-actions">
           <button class="icon-btn"><i class="far fa-smile"></i></button>
           <button class="icon-btn"><i class="fas fa-paperclip"></i></button>
@@ -336,24 +335,6 @@
 </div>
 
 
-<script src="script.js"></script>
-<script>
-const msgInput = document.getElementById('messageText');
-const chatBody = document.getElementById('chatBody');
-
-// 🟦 Keep chat input visible when focused (avoid hiding under mobile keyboard)
-msgInput.addEventListener('focus', () => {
-  setTimeout(() => {
-    msgInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    chatBody.style.paddingBottom = '80px'; // adjust bottom padding to prevent overlap
-  }, 300);
-});
-
-msgInput.addEventListener('blur', () => {
-  chatBody.style.paddingBottom = '18px'; // reset original padding
-});
-</script>
-
-
+  <script src="script.js"></script>
 </body>
 </html>
