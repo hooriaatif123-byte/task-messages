@@ -630,6 +630,9 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
   .rightbar { 
     display: none;
   }
+   .theme-toggle-btn {
+    display: block; /* Show theme toggle on mobile */
+  }
   .chats-col {
     position: fixed;
     top: 0;
