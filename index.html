@@ -336,28 +336,24 @@
 </div>
 
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 <script>
 const msgInput = document.getElementById('messageText');
+const chatBody = document.getElementById('chatBody');
 
-// 🟦 Keep chat input visible when focused (avoid hiding under keyboard)
+// 🟦 Keep chat input visible when focused (avoid hiding under mobile keyboard)
 msgInput.addEventListener('focus', () => {
   setTimeout(() => {
     msgInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    chatBody.style.paddingBottom = '80px'; // adjust bottom padding to prevent overlap
   }, 300);
 });
 
-// 🟩 Auto expand textarea height + shrink when cleared
-msgInput.addEventListener('input', () => {
-  msgInput.style.height = 'auto';
-  msgInput.style.height = msgInput.scrollHeight + 'px';
-
-  // if cleared, reset to original height
-  if (msgInput.value.trim() === '') {
-    msgInput.style.height = '40px'; // adjust base height if needed
-  }
+msgInput.addEventListener('blur', () => {
+  chatBody.style.paddingBottom = '18px'; // reset original padding
 });
 </script>
+
 
 </body>
 </html>
