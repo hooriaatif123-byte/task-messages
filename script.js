@@ -118,7 +118,7 @@ function fixMobileInput() {
             chatInputWrapper.style.width = '100%';
             chatInputWrapper.style.zIndex = '999';
             chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + 10) + 'px';
-            chatBody.scrollTop = chatBody.scrollHeight;
+            chatBody.scrollTop = chatBody.scrollHeight; // Scroll chat to bottom
         }, 300);
     });
 
@@ -138,7 +138,7 @@ function fixMobileInput() {
 fixMobileInput();
 window.addEventListener('resize', fixMobileInput);
 
-// Auto-expand input
+// ---------------- Auto-expand Input ----------------
 messageText.addEventListener('input', () => {
     messageText.style.height = 'auto';
     messageText.style.height = messageText.scrollHeight + 'px';
