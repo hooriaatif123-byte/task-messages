@@ -76,6 +76,16 @@ let isMobileView = window.innerWidth <= 599;
 const chatMain = document.querySelector('.chat-main');
 const chatsCol = document.querySelector('.chats-col');
 
+// Toggle messages column on mobile when clicking the Messages icon
+const messagesBtn = document.querySelector('.nav-btn[title="Messages"]'); // Selects the Messages button
+
+
+if (messagesBtn && chatsCol) {
+  messagesBtn.addEventListener('click', () => {
+    chatsCol.classList.toggle('open'); // Toggles the 'open' class to show/hide
+  });
+}
+
 window.addEventListener('resize', () => {
     isMobileView = window.innerWidth <= 599;
     if (!isMobileView) {
