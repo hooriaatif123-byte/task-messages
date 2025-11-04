@@ -18,6 +18,7 @@ window.addEventListener('resize', () => {
     }
 });
 
+
 // If you want to remember theme during page session only, keep it simple:
 // Function to toggle theme
 function toggleTheme() {
@@ -33,7 +34,6 @@ function toggleTheme() {
 // Add click handlers for both buttons
 themeBtn?.addEventListener('click', toggleTheme);
 mobileThemeBtn?.addEventListener('click', toggleTheme);
-
 // Simple send message demo (adds your message to chat as right aligned blue bubble)
 const sendBtn = document.getElementById('sendMsg');
 const messageText = document.getElementById('messageText');
