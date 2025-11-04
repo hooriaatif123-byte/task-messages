@@ -666,6 +666,12 @@ body { font-family:'Inter', sans-serif; background: var(--bg-main); height:100vh
        gap: 8px;
      }
    }
+   
+   @media (max-width: 767px) {
+  .theme-toggle-btn {
+    display: block;  /* Show on mobile */
+  }
+}
 /* ===================== END OF STYLE.CSS ===================== */
 
 
