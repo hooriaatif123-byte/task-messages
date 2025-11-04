@@ -123,39 +123,46 @@ function handleSwipe() {
         chatMain.classList.remove('slide-left');
         chatsCol.classList.remove('hidden');
     }
-}
-// ---------------- Mobile input keyboard handling ----------------
+}// ---------------- Mobile input keyboard handling ----------------
 const msgInput = document.getElementById('messageText');
+const chatBody = document.getElementById('chatBody');
+const chatInputWrapper = document.querySelector('.chat-input');
 
 msgInput.addEventListener('focus', () => {
     // delay to let keyboard open
     setTimeout(() => {
-        // Scroll chat to show input
+        // Scroll chat to bottom
         chatBody.scrollTop = chatBody.scrollHeight;
 
-        // On mobile, adjust chat-body height to stay above keyboard
+        // On mobile, keep input above keyboard
         if (window.innerWidth <= 768) {
-            const chatBodyEl = document.getElementById('chatBody');
-            chatBodyEl.style.maxHeight = (window.innerHeight - msgInput.offsetHeight - 20) + 'px';
+            chatInputWrapper.style.position = 'absolute';
+            chatInputWrapper.style.bottom = '10px';
+            chatInputWrapper.style.width = '95%';
+            chatInputWrapper.style.left = '50%';
+            chatInputWrapper.style.transform = 'translateX(-50%)';
+
+            // Optional: add padding-bottom to chat-body so last messages are visible
+            chatBody.style.paddingBottom = (chatInputWrapper.offsetHeight + 20) + 'px';
         }
     }, 300);
 });
 
 msgInput.addEventListener('blur', () => {
-    // Reset chat-body height on blur
+    // Reset styles
     if (window.innerWidth <= 768) {
-        const chatBodyEl = document.getElementById('chatBody');
-        chatBodyEl.style.maxHeight = '';
+        chatInputWrapper.style.position = '';
+        chatInputWrapper.style.bottom = '';
+        chatInputWrapper.style.width = '';
+        chatInputWrapper.style.left = '';
+        chatInputWrapper.style.transform = '';
+        chatBody.style.paddingBottom = '18px';
     }
 });
 
-// Optional: auto-expand input height when typing
+// Auto-expand input height when typing
 msgInput.addEventListener('input', () => {
     msgInput.style.height = 'auto';
     msgInput.style.height = msgInput.scrollHeight + 'px';
-
-    if (msgInput.value.trim() === '') {
-        msgInput.style.height = '40px'; // base height
-    }
+    if (msgInput.value.trim() === '') msgInput.style.height = '40px';
 });
-
